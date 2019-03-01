@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbs.dao.Commentdao">
+    <<select id="commentsBypost" resultType="Comment" parameterType="int">
+      select *
+      from comment
+      where topic_id=#{topicid} ;
+
+    </select>
+
+    <select id="commentByuser" resultType="Comment"  parameterType="int">
+        select * from comment
+        where user_id=#{userid} ;
+    </select>
+
+    <insert id="addcomment">
+        insert ignore
+        into comment(topic_id,user_id,content)
+        values(#{topicid} ,#{userid} ,#{content} );
+    </insert>
+
+    <delete id="deletecomment" parameterType="int">
+        delete from comment
+        where comment_id =#{commentid} ;
+    </delete>
+
+
+
+
+
+</mapper>

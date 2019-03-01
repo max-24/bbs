@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbs.dao.Postdao">
+    <<select id="getposts" resultType="Post">
+      select *  from post;
+
+    </select>
+
+    <select id="getpostByid" resultType="Post" parameterType="int">
+        select * from post
+        where topic_id=#{topicid} ;
+    </select>
+
+    <select id="getpostByuser" resultType="Post" parameterType="int">
+        select * from post
+        where user_id=#{userid} ;
+    </select>
+
+    <insert id="addpost" >
+        insert ignore
+        into post(user_id,title,content)
+        values(#{userid} ,#{title} ,#{content} );
+    </insert>
+
+    <update id="updatepost">
+        update post
+        set title=#{title} ,content=#{content}
+        where topic_id=#{topicid};
+    </update>
+
+    <delete id="deletepost" parameterType="int">
+        delete from post
+        where topic_id=#{topicid} ;
+    </delete>
+
+    <select id="postbytopic" resultType="int" parameterType="int">
+        select user_id
+        from post
+        where topic_id=#{topicid}
+    </select>
+</mapper>

@@ -1,0 +1,75 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbs.dao.Userdao">
+    <select id="getusers" resultType="User" >
+    select *
+    from user
+    order by create_Time desc;
+    </select>
+
+    <select id="userByid" resultType="User" parameterType="int">
+        select *
+        from user
+        where user_id = #{userid};
+    </select>
+
+    <insert id="adduser">
+        insert ignore into
+        user(user_name,email,replys,topics,praises)
+        values (#{username} ,#{email},0,0,0);
+    </insert>
+
+    <delete id="deleteuser" parameterType="int">
+        delete from user
+        where user_id=#{userid};
+    </delete>
+
+    <update id="updateuser">
+        update user
+        set user_name=#{username} ,email=#{email}
+        where user_id=#{userid};
+    </update>
+
+    <update id="addcomment" parameterType="int">
+        update user
+        set comments=comments+1
+        where user_id=#{userid};
+
+    </update>
+
+    <update id="addpost" parameterType="int">
+        update user
+        set posts=posts+1
+        where user_id=#{userid};
+
+    </update>
+
+    <update id="addpraise" parameterType="int">
+        update user
+        set praises=praises+1
+        where user_id=#{userid};
+
+    </update>
+
+    <update id="deletepost" parameterType="int">
+        update user
+        set posts=posts-1
+        where user_id=#{userid}
+        and  posts>0;
+    </update>
+
+    <update id="deletecomment" parameterType="int">
+        update user
+        set comments=comments-1
+        where user_id=#{userid}
+        and comments>0;
+    </update>
+
+    <update id="deletepraise" parameterType="int">
+        update user
+        set praises=praises-1
+        where user_id=#{userid}
+        and praises>0;
+    </update>
+</mapper>

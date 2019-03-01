@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbs.dao.Replydao">
+    <select id="replyBycomment" resultType="Reply" parameterType="int">
+        select * from reply
+        where comment_id =#{commentid}
+        order by replytime desc;
+    </select>
+
+    <select id="replyByuser" resultType="Reply" parameterType="int">
+        select * from reply
+        where reply_user=#{replyuser}
+        order by replytime desc;
+    </select>
+
+    <insert id="addreply">
+        insert ignore
+        into reply(comment_id,reply_user,content)
+        values(#{commentid} ,#{replyuser} ,#{content} );
+    </insert>
+
+    <delete id="deletereply" parameterType="int">
+        delete from reply
+        where reply_id=#{replyid} ;
+    </delete>
+</mapper>
